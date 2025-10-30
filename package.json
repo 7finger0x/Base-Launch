@@ -1,5 +1,12 @@
 {
   "dependencies": {
-    "posthog-js": "^1.282.0"
+    "@privy-io/chains": "^0.0.3",
+    "@privy-io/react-auth": "^2.8.3",
+    "@privy-io/wagmi-connector": "^0.1.7",
+    "posthog-js": "^1.282.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.38.5",
+    "wagmi": "^2.19.1"
   }
 }
