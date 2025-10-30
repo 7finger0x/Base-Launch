@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaseLaunch - Launch and Discover Base Mini Apps</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Onboarding Modal (First-time users) -->
+    <div id="onboardingModal" class="modal">
+        <div class="modal-content">
+            <div id="onboardingStep1" class="onboarding-step">
+                <h1>Welcome to BaseLaunch</h1>
+                <p>Launch and discover the best Base mini apps</p>
+                <div class="role-selection">
+                    <button class="role-btn" data-role="builder">
+                        <span class="role-icon">🚀</span>
+                        <span class="role-title">I'm Building</span>
+                        <span class="role-desc">Launch your mini app</span>
+                    </button>
+                    <button class="role-btn" data-role="explorer">
+                        <span class="role-icon">🔍</span>
+                        <span class="role-title">I'm Exploring</span>
+                        <span class="role-desc">Discover new apps</span>
+                    </button>
+                </div>
+            </div>
+            <div id="onboardingStep2Builder" class="onboarding-step" style="display: none;">
+                <h2>What are you launching?</h2>
+                <div class="category-grid">
+                    <button class="category-btn" data-category="Gaming">🎮 Gaming</button>
+                    <button class="category-btn" data-category="DeFi">💰 DeFi</button>
+                    <button class="category-btn" data-category="Social">💬 Social</button>
+                    <button class="category-btn" data-category="AI">🤖 AI</button>
+                    <button class="category-btn" data-category="Tools">🔧 Tools</button>
+                    <button class="category-btn" data-category="Music">🎵 Music</button>
+                </div>
+                <button class="btn btn--primary" id="startLaunchBtn">Let's Build Your Waitlist</button>
+            </div>
+            <div id="onboardingStep2Explorer" class="onboarding-step" style="display: none;">
+                <h2>What interests you?</h2>
+                <p>Select all that apply</p>
+                <div class="category-grid">
+                    <button class="category-btn multi-select" data-category="Gaming">🎮 Gaming</button>
+                    <button class="category-btn multi-select" data-category="DeFi">💰 DeFi</button>
+                    <button class="category-btn multi-select" data-category="Social">💬 Social</button>
+                    <button class="category-btn multi-select" data-category="AI">🤖 AI</button>
+                    <button class="category-btn multi-select" data-category="Tools">🔧 Tools</button>
+                    <button class="category-btn multi-select" data-category="Music">🎵 Music</button>
+                </div>
+                <button class="btn btn--primary" id="findAppsBtn">Find Your First App</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div id="app" class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">BaseLaunch</span>
+                </div>
+                <nav class="nav-tabs">
+                    <button class="nav-tab active" data-view="discover">Discover</button>
+                    <button class="nav-tab" data-view="launch">Launch</button>
+                    <button class="nav-tab" data-view="trending">Trending</button>
+                    <button class="nav-tab" data-view="myapps">My Apps</button>
+                </nav>
+                <div class="user-info">
+                    <span class="user-badge">85</span>
+                    <span class="user-name">demo-builder</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- VIEW 1: Discovery Feed -->
+        <div id="discoverView" class="view active">
+            <div class="hero">
+                <h1>Launch and Discover the Best Base Mini Apps</h1>
+                <div class="stats-banner">
+                    <div class="stat">
+                        <span class="stat-value" id="totalApps">127</span>
+                        <span class="stat-label">apps launched</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="totalUsers">8,934</span>
+                        <span class="stat-label">users discovering</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="activeLaunches">23</span>
+                        <span class="stat-label">active launches</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filters-section">
+                <div class="filter-buttons" id="categoryFilters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Gaming">Gaming</button>
+                    <button class="filter-btn" data-filter="DeFi">DeFi</button>
+                    <button class="filter-btn" data-filter="Social">Social</button>
+                    <button class="filter-btn" data-filter="AI">AI</button>
+                    <button class="filter-btn" data-filter="Tools">Tools</button>
+                </div>
+                <select class="form-control sort-select" id="sortSelect">
+                    <option value="trending">Trending</option>
+                    <option value="new">New</option>
+                    <option value="users">Most Users</option>
+                    <option value="rising">Rising Fast</option>
+                </select>
+            </div>
+
+            <div id="appGrid" class="app-grid"></div>
+        </div>
+
+        <!-- VIEW 2: Launch Dashboard -->
+        <div id="launchView" class="view">
+            <div class="launch-header">
+                <h1>Start Your Launch</h1>
+                <div class="countdown-widget">
+                    <div class="countdown-label">Next cohort starts in:</div>
+                    <div class="countdown-time" id="cohortCountdown">3d 14h 22m</div>
+                </div>
+            </div>
+
+            <div class="launch-content">
+                <div class="launch-col-left">
+                    <div class="card checklist-card">
+                        <div class="card-header">
+                            <h3>Launch Checklist</h3>
+                            <div class="progress-indicator">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="checklistProgress" style="width: 20%"></div>
+                                </div>
+                                <span class="progress-text" id="checklistText">1/5 completed</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="checklist">
+                                <div class="checklist-item completed">
+                                    <input type="checkbox" checked disabled>
+                                    <span>Create app listing</span>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="waitlistCheck">
+                                    <span>Build waitlist</span>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="launchDateCheck">
+                                    <span>Schedule launch date</span>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="socialCheck">
+                                    <span>Prepare social posts</span>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="cohortCheck">
+                                    <span>Join launch cohort</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card waitlist-card">
+                        <div class="card-header">
+                            <h3>Waitlist Builder</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="waitlist-stats">
+                                <div class="big-number" id="waitlistCount">0</div>
+                                <div class="stat-label">Total Signups</div>
+                            </div>
+                            <div class="referral-section">
+                                <label class="form-label">Your Referral Link</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="referralLink" value="baselaunch.xyz/ref/demo-builder" readonly>
+                                    <button class="btn btn--secondary" id="copyLinkBtn">Copy</button>
+                                </div>
+                                <div class="viral-toggle">
+                                    <input type="checkbox" id="viralToggle" checked>
+                                    <label for="viralToggle">Enable 2x entries for referrals</label>
+                                </div>
+                            </div>
+                            <div class="top-referrers">
+                                <h4>Top Referrers</h4>
+                                <div class="empty-state">Share your link to see referrers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="launch-col-right">
+                    <div class="card playbook-card">
+                        <div class="card-header">
+                            <h3>Launch Playbook Templates</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="template" id="template1">
+                                <div class="template-header">
+                                    <h4>Launch Announcement</h4>
+                                    <button class="btn btn--sm btn--secondary copy-template" data-template="1">Copy</button>
+                                </div>
+                                <pre class="template-content">@[app_name] just launched on @base! 🎉
+
+We built [description] and shipped fast. Try it now: [url]
+
+#BaseBuilds #MiniApps</pre>
+                            </div>
+                            <div class="template">
+                                <div class="template-header">
+                                    <h4>Milestone Celebration</h4>
+                                    <button class="btn btn--sm btn--secondary copy-template" data-template="2">Copy</button>
+                                </div>
+                                <pre class="template-content">🎊 Just hit [X] users on @[app_name]!
+
+Huge thanks to everyone who believed in us from day one. This is just the beginning.
+
+[url]</pre>
+                            </div>
+                            <div class="template">
+                                <div class="template-header">
+                                    <h4>Behind the Scenes</h4>
+                                    <button class="btn btn--sm btn--secondary copy-template" data-template="3">Copy</button>
+                                </div>
+                                <pre class="template-content">Building @[app_name] taught us:
+
+1. Ship fast, iterate faster
+2. Community > features
+3. [Your lesson]
+
+Check it out: [url]</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card analytics-card">
+                        <div class="card-header">
+                            <h3>Analytics Dashboard</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="waitlistChart"></canvas>
+                            </div>
+                            <div class="analytics-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">Referral Rate</span>
+                                    <span class="metric-value">0%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Social Mentions</span>
+                                    <span class="metric-value">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: Trending Apps -->
+        <div id="trendingView" class="view">
+            <div class="trending-header">
+                <h1>🔥 Hottest Apps This Week</h1>
+            </div>
+            <div id="trendingLeaderboard" class="leaderboard"></div>
+            
+            <div class="trending-sections">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Rising Stars</h3>
+                    </div>
+                    <div class="card-body" id="risingStars"></div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Hidden Gems</h3>
+                    </div>
+                    <div class="card-body" id="hiddenGems"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 4: App Detail Modal -->
+        <div id="appDetailModal" class="modal">
+            <div class="modal-content app-detail">
+                <button class="modal-close" id="closeAppDetail">&times;</button>
+                <div class="app-detail-header">
+                    <div class="app-icon-large" id="detailIcon"></div>
+                    <div class="app-detail-info">
+                        <h1 id="detailName"></h1>
+                        <div class="app-meta">
+                            <span class="category-badge" id="detailCategory"></span>
+                            <span class="creator-info" id="detailCreator"></span>
+                        </div>
+                        <div class="app-stats">
+                            <span id="detailUsers"></span>
+                            <span class="rating" id="detailRating"></span>
+                        </div>
+                        <div class="app-actions">
+                            <button class="btn btn--primary" id="tryAppBtn">Try App</button>
+                            <button class="btn btn--secondary" id="saveAppBtn">Save</button>
+                            <button class="btn btn--secondary" id="shareAppBtn">Share</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="app-detail-tabs">
+                    <button class="detail-tab active" data-tab="about">About</button>
+                    <button class="detail-tab" data-tab="reviews">Reviews</button>
+                </div>
+                
+                <div id="aboutTab" class="detail-tab-content active">
+                    <p id="detailDescription"></p>
+                    <div class="tech-stack" id="detailTechStack"></div>
+                </div>
+                
+                <div id="reviewsTab" class="detail-tab-content">
+                    <div id="reviewsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 5: My Apps -->
+        <div id="myappsView" class="view">
+            <h1>My Dashboard</h1>
+            
+            <div class="profile-header">
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-card-value">85</div>
+                        <div class="stat-card-label">Reputation Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-value">34</div>
+                        <div class="stat-card-label">Apps Discovered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-value">12</div>
+                        <div class="stat-card-label">Referrals Made</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-apps-sections">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Saved Apps</h3>
+                    </div>
+                    <div class="card-body" id="savedAppsList"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Your Badges</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="badges-grid" id="badgesList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

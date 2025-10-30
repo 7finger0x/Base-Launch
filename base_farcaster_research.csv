@@ -1,0 +1,8 @@
+Category,Pain Point / Opportunity,Priority,Source
+Discovery,Users don't know what to do after first token,CRITICAL,Jesse Pollak
+Discovery,Hard to find relevant mini apps,HIGH,Base docs
+Distribution,Apps struggle to get initial users,CRITICAL,Noice case study
+Monetization,Creator earnings not accessible,HIGH,Jesse Pollak
+Developer UX,Manifest config problems,MEDIUM,Farcaster docs
+Retention,Need push notifications,MEDIUM,Farcaster docs
+Analytics,No usage tracking tools,HIGH,Dan Romero
