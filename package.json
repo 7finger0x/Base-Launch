@@ -1,6 +1,11 @@
 ﻿{
-  "name": "base-launch",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {}
+    "name":  "base-launch",
+    "version":  "0.0.1",
+    "private":  true,
+    "dependencies":  {
+
+                     },
+    "scripts":  {
+                    "build":  "echo \u0027Nothing to build - static site\u0027"
+                }
 }
