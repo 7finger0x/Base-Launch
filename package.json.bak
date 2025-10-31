@@ -1,0 +1,15 @@
+@'
+{
+  "name": "base-launch",
+  "version": "1.0.0",
+  "description": "Base Launch - Mini App Discovery Platform",
+  "scripts": {
+    "dev": "echo 'Static site'",
+    "build": "echo 'Static site - no build needed'",
+    "start": "echo 'Static site'"
+  },
+  "dependencies": {
+    "posthog-js": "^1.282.0"
+  }
+}
+'@ | Set-Content -Path "package.json" -Encoding UTF8
