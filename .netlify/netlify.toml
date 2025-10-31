@@ -1,26 +1,14 @@
 [build]
-  command = "pnpm run build"
-  publish = ".next"
-  functions = "functions"
+  publish = "public"         # Change to your static output folder (e.g. ".", "dist", "build", etc.)
+  command = "npm run build"  # Or "pnpm run build" if you use pnpm
+  functions = "functions"    # Remove if you do not have serverless functions
 
 [build.environment]
   NODE_VERSION = "22.21.1"
   NODE_ENV = "production"
 
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  minify = true
-
-[build.processing.js]
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
 [[redirects]]
-  from = "/*"
+  from = "/"
   to = "/index.html"
   status = 200
 
